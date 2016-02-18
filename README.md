@@ -1,14 +1,14 @@
 
-# `lapis-redis`
+# `lapis-tarantool`
 
-This module is used for integrating [Redis](http://redis.io) with
+This module is used for integrating [Tarantool](http://tarantool.org) with
 [Lapis](http://leafo.net/lapis). It uses the
-[`lua-resty-redis`](https://github.com/openresty/lua-resty-redis) module.
+[`lua-resty-tarantool`](https://github.com/openresty/lua-resty-tarantool) module.
 
 ## Installing
 
 ```bash
-$ luarocks install lapis-redis
+$ luarocks install lapis-tarantool
 ```
 
 ## Configuring
@@ -17,7 +17,7 @@ $ luarocks install lapis-redis
 -- config.moon
 
 config "development", ->
-  redis {
+  tarantool {
     host: "127.0.0.1"
     port: 6379
   }
@@ -26,39 +26,38 @@ config "development", ->
 
 ## Connecting
 
-The function `get_redis` can be used to get the current request's Redis
+The function `get_tnt` can be used to get the current request's Redis
 connection. If there's not connection established for the request a new one
 will be opened. After the request completes the Redis connection will
 automatically be recycled for future requests.
 
-The return value of `get_redis` is a connected
-[`lua-resty-redis`](https://github.com/openresty/lua-resty-redis#methods)
+The return value of `get_tnt` is a connected
+[`lua-resty-tarantool`](https://github.com/openresty/lua-resty-tarantool#methods)
 object.
 
 ```moon
-import get_redis from require "lapis.redis"
+import get_tnt from require "lapis.tarantool"
 
 class App extends lapis.Application
   "/": =>
-    redis = get_redis!
-    redis\set "hello", "world"
+    tnt = get_tnt!
+    tnt\select "users", "3453489"
 
-    redis\get "hello"
 ```
 
 
-## Redis cache
+## Tarantool cache
 
-You can use Redis as a cache using the [Lapis caching
+You can use Tarantool as a cache using the [Lapis caching
 API](http://leafo.net/lapis/reference/utilities.html#caching-cachedfn_or_tbl).
 
 ```moon
 import cached from require "lapis.cache"
-import redis_cache from require "lapis.redis"
+import tnt_cache from require "lapis.tarantool"
 
 class App extends lapis.Application
   "/hello": cached {
-    dict: redis_cache "cache-prefix"
+    dict: tnt_cache "cache-prefix"
     =>
       @html ->
         div "hello"
