@@ -1,6 +1,3 @@
-test:
-	busted
-
 lint: build
 	moonc -l lapis
 

@@ -1,14 +1,14 @@
-package = "lapis-redis"
+package = "lapis-tarantool"
 version = "dev-1"
 
 source = {
-  url = "git://github.com/leafo/lapis-redis.git"
+  url = "git://github.com/hengestone/lapis-tarantool.git"
 }
 
 description = {
-  summary = "Redis integration with lapis",
+  summary = "Tarantool integration with lapis",
   license = "MIT",
-  maintainer = "Leaf Corcoran <leafot@gmail.com>",
+  maintainer = "Conrad Steenberg <conrad.steenberg@gmail.com>",
 }
 
 dependencies = {
@@ -19,7 +19,7 @@ dependencies = {
 build = {
   type = "builtin",
   modules = {
-    ["lapis.redis"] = "lapis/redis.lua",
+    ["lapis.tarantool"] = "lapis/tarantool.lua",
   }
 }
 
