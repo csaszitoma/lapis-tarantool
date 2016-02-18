@@ -26,9 +26,9 @@ config "development", ->
 
 ## Connecting
 
-The function `get_tnt` can be used to get the current request's Redis
+The function `get_tnt` can be used to get the current request's Tarantool
 connection. If there's not connection established for the request a new one
-will be opened. After the request completes the Redis connection will
+will be opened. After the request completes the Tarantool connection will
 automatically be recycled for future requests.
 
 The return value of `get_tnt` is a connected
